@@ -30,6 +30,11 @@ public class Create {
 
         System.out.print("Please enter the ID of the animal you wish to create: ");
         String animalId = in.next();
+        while (Utils.animalIdAlreadyExists(conn, animalId)) {
+            System.out.print("ID already exists. Please enter the ID of the animal you wish to create: ");
+            animalId = in.next();
+        }
+
         System.out.print("Please enter the name of the animal you wish to create: ");
         String animalName = in.next();
         System.out.println("Please enter the sex of the animal you wish to create. The following are" +

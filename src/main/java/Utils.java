@@ -105,4 +105,17 @@ public class Utils {
         }
         return species.get(0);
     }
+
+    public static boolean animalIdAlreadyExists(Connection conn, String animalId) throws SQLException {
+        CallableStatement cStmt = conn.prepareCall("{call animal_by_id(?)}");
+        cStmt.setString(1, animalId);
+
+        ResultSet res = cStmt.executeQuery();
+        List<String> animalProps = new ArrayList<String>();
+        while(res.next()){
+            String ID = res.getString("animal_id");
+            animalProps.add(ID);
+        }
+        return animalProps.size() != 0;
+    }
 }
