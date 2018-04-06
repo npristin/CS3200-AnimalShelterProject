@@ -59,19 +59,30 @@ public class Application {
         }
 
         Scanner in = new Scanner(System.in);
-        System.out.println("You may add an animal by typing CREATE, delete an animal by typing DELETE," +
-                "update an animal by typing UPDATE, and find an animal by typing READ");
-        System.out.println("Please type END if you are done and wish to exit");
+        while (true) {
+            System.out.println("You may add an animal by typing CREATE, delete an animal by typing DELETE," +
+                    "update an animal by typing UPDATE, and find an animal by typing READ");
+            System.out.println("Please type END if you are done and wish to exit");
 
-        String command = in.next();
+            String command = in.next();
 
-        if (command.equals("END")) {
+            if (command.equals("END")) {
+                conn.close();
+                System.exit(0);
+            }
+            if (command.equals("CREATE")) {
+                Create.runCreate(conn, in);
+            }
+            if (command.equals("DELETE")) {
+                Delete.runDelete(conn, in);
+            }
+            if (command.equals("UPDATE")) {
+                Update.runUpdate(conn, in);
+            }
+            if (command.equals("READ")) {
+                Update.runUpdate(conn, in);
+            }
             conn.close();
-            System.exit(0);
         }
-        if (command.equals("CREATE")) {
-            Create.runCreate(conn, in);
-        }
-        conn.close();
     }
 }

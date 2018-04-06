@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Scanner;
 
 public class Read {
 
@@ -27,5 +28,9 @@ public class Read {
             }
             System.out.println("");
         }
+    }
+
+    public static void runRead(Connection conn, Scanner in) throws SQLException {
+
     }
 }

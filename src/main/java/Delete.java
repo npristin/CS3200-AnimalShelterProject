@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Scanner;
 
 public class Delete {
 
@@ -25,5 +26,8 @@ public class Delete {
             }
             System.out.println("");
         }
+    }
+
+    public static void runDelete(Connection conn, Scanner in) throws SQLException {
     }
 }

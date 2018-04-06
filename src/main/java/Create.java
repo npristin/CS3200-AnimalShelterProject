@@ -82,13 +82,12 @@ public class Create {
             System.out.print("Please enter a valid outcome type from the provided list: ");
             outcomeType = in.nextLine();
         }
-        System.out.println("OPTIONAL: Enter the outcome subtype of the animal you wish to create. " +
-                "The following are the valid subtypes: ");
         List<String> outcomeSubtypes = Utils.getValidOutcomeSubtypes(conn);
         for (String subtype: outcomeSubtypes) {
             System.out.println(subtype);
         }
-        System.out.print("If no subtype, type NONE. Otherwise, please type one of the above options: ");
+        System.out.println("OPTIONAL: Enter the outcome subtype of the animal you wish to create. If you do not want" +
+                "to choose a subtype, type NONE. Above are the valid subtypes: ");
         String outcomeSubtype = in.nextLine();
         while (!(outcomeSubtypes.contains(outcomeSubtype) || outcomeSubtype.equals("NONE"))) {
             System.out.print("Please enter a valid outcome subtype from the provided list: ");
@@ -97,9 +96,9 @@ public class Create {
         if (outcomeSubtype.equals("NONE")){
             outcomeSubtype = "";
         }
-
         Create.createAnimal(conn, animalId, animalName, animalSex, animalAge, animalBreed, animalSpecies, animalColor,
                 dateDischarged, outcomeType, outcomeSubtype);
-
+        System.out.println();
+        System.out.println();
     }
 }

@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Scanner;
 
 public class Update {
 
@@ -29,5 +30,9 @@ public class Update {
             }
             System.out.println("");
         }
+    }
+
+    public static void runUpdate(Connection conn, Scanner in) throws SQLException {
+
     }
 }
