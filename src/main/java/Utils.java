@@ -41,19 +41,6 @@ public class Utils {
         return sexes;
     }
 
-    public static List<String > getValidSpeciesType(Connection conn) throws SQLException {
-        Statement stmt;
-        stmt = conn.createStatement();
-        ResultSet res = stmt.executeQuery("SELECT DISTINCT species FROM animal_type");
-
-        List<String> species = new ArrayList<String>();
-        while(res.next()){
-            String species_type = res.getString("species");
-            species.add(species_type);
-        }
-        return species;
-    }
-
     public static List<String> getValidOutcomeTypes(Connection conn) throws SQLException {
         Statement stmt;
         stmt = conn.createStatement();
@@ -91,5 +78,18 @@ public class Utils {
             breeds.add(breed);
         }
         return breeds;
+    }
+
+    public static String getAnimalSpeciesByAnimalId(Connection conn, String animalId) throws SQLException {
+        CallableStatement cStmt = conn.prepareCall("{call get_animal_species(?)}");
+        cStmt.setString(1, animalId);
+
+        ResultSet res = cStmt.executeQuery();
+        List<String> species = new ArrayList<String>();
+        while(res.next()){
+            String speciesType = res.getString("species");
+            species.add(speciesType);
+        }
+        return species.get(0);
     }
 }

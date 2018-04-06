@@ -44,7 +44,7 @@ public class Create {
             animalSex = in.nextLine();
         }
 
-        System.out.print("Please type the age of the animal you wish to create in months or years: ");
+        System.out.print("Please type the age of the animal you wish to create in weeks, months, or years: ");
         String animalAge = in.nextLine();
 
         System.out.print("Please type if the animal is a cat or a dog of the animal you wish to create: ");

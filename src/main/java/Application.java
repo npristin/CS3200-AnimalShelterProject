@@ -80,9 +80,8 @@ public class Application {
                 Update.runUpdate(conn, in);
             }
             if (command.equals("READ")) {
-                Update.runUpdate(conn, in);
+                Read.runRead(conn, in);
             }
-            conn.close();
         }
     }
 }
