@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.List;
 import java.util.Scanner;
 
 public class Read {
@@ -57,6 +58,68 @@ public class Read {
             filteringValue = in.nextLine();
 
             getAnimalByProperty(conn, filteringValue, "animal_by_age");
+            System.out.println();
+            System.out.println();
+        }
+        if (columnFilter.equals("breed")) {
+            List<String> validBreeds = Utils.getAllBreeds(conn);
+            for (String breed: validBreeds) {
+                System.out.println(breed);
+            }
+            System.out.print("Please type the breed you want to filter on. Please select from the above list of valid " +
+                    "breeds: ");
+            in.nextLine();
+            filteringValue = in.nextLine();
+            while (!validBreeds.contains(filteringValue)) {
+                System.out.print("Please enter a valid breed from the provided list: ");
+                filteringValue = in.nextLine();
+            }
+
+            getAnimalByProperty(conn, filteringValue, "animal_by_breed");
+            System.out.println();
+            System.out.println();
+        }
+        if (columnFilter.equals("outcome_type")) {
+            List<String> outcomes = Utils.getValidOutcomeTypes(conn);
+            for (String outcome: outcomes) {
+                System.out.println(outcome);
+            }
+            System.out.print("Please type the outcome type you want to filter on. Please select from the above list of valid " +
+                    "outcome types: ");
+            in.nextLine();
+            filteringValue = in.nextLine();
+            while (!outcomes.contains(filteringValue)) {
+                System.out.print("Please enter a valid outcome type from the provided list: ");
+                filteringValue = in.nextLine();
+            }
+
+            getAnimalByProperty(conn, filteringValue, "animal_by_outcome_type");
+            System.out.println();
+            System.out.println();
+        }
+        if (columnFilter.equals("sex")) {
+            List<String> validSexes = Utils.getValidAnimalSexes(conn);
+            for (String sex: validSexes) {
+                System.out.println(sex);
+            }
+            System.out.print("Please type the animal sex you want to filter on. Please select from the above list of valid " +
+                    "animal sexes: ");
+            in.nextLine();
+            filteringValue = in.nextLine();
+            while (!validSexes.contains(filteringValue)) {
+                System.out.print("Please enter a valid animal sex from the provided list: ");
+                filteringValue = in.nextLine();
+            }
+
+            getAnimalByProperty(conn, filteringValue, "animal_by_sex");
+            System.out.println();
+            System.out.println();
+        }
+        if (columnFilter.equals("species")) {
+            System.out.print("Please type the species value you want to filter on (Cat or Dog): ");
+            filteringValue = in.next();
+
+            getAnimalByProperty(conn, filteringValue, "animal_by_species");
             System.out.println();
             System.out.println();
         }

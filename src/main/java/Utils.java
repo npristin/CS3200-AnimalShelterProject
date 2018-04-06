@@ -67,6 +67,19 @@ public class Utils {
         return outcomes;
     }
 
+    public static List<String> getAllBreeds(Connection conn) throws SQLException {
+        Statement stmt;
+        stmt = conn.createStatement();
+        ResultSet res = stmt.executeQuery("SELECT breed FROM animal_type");
+
+        List<String> breeds = new ArrayList<String>();
+        while(res.next()){
+            String breed = res.getString("breed");
+            breeds.add(breed);
+        }
+        return breeds;
+    }
+
     public static List<String> getBreedsByAnimalType(Connection conn, String animalType) throws SQLException {
         CallableStatement cStmt = conn.prepareCall("{call get_breeds_by_animal_type(?)}");
         cStmt.setString(1, animalType);
