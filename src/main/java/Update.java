@@ -5,8 +5,15 @@ import java.util.Scanner;
 
 public class Update {
 
+    /**
+     * Allows the user to update a feature about an animal
+     * @param conn
+     * @param in
+     * @throws SQLException
+     */
     public static void runUpdate(Connection conn, Scanner in) throws SQLException {
 
+        // Prompts user to type the ID of an existing, valid animal
         System.out.print("Please enter the ID of the animal you wish to update: ");
         String animalId = in.next();
         while (!Utils.animalIdAlreadyExists(conn, animalId)) {
@@ -15,6 +22,7 @@ public class Update {
         }
         System.out.println();
 
+        // Compile a list of all the fields available for update
         List<String> fields = new ArrayList<String>();
         fields.add("age");
         fields.add("color");
@@ -25,6 +33,7 @@ public class Update {
         fields.add("outcome_type");
         fields.add("outcome_subtype");
 
+        // Prompts the user to select the field/attribute they wish to update
         System.out.println("Of the following, which attribute of the animal do you wish to update? - " +
                 "age, color, breed, date_discharged, name, sex, outcome_type, outcome_subtype: ");
         String fieldToUpdate = in.next();
@@ -33,8 +42,9 @@ public class Update {
             fieldToUpdate = in.next();
         }
         System.out.println();
-
         String newFieldValue;
+
+        // If the field to update is age, prompt the user for the new age and update the property
         if (fieldToUpdate.equals("age")) {
             System.out.print("Please write the new field value you wish to update to. Please specify if it is in " +
                     "weeks, months, or years: ");
@@ -43,13 +53,16 @@ public class Update {
 
             updateAnimalProperty(conn, animalId, newFieldValue, "update_animal_age");
         }
+        // If the field to update is color, prompt the user for the new color and update the property
         else if (fieldToUpdate.equals("color")) {
             System.out.println("Please write the new field value you wish to update to: ");
             in.nextLine();
             newFieldValue = in.nextLine();
 
+            // updates the property
             updateAnimalProperty(conn, animalId, newFieldValue, "update_animal_color");
         }
+        // If the field to update is breed, prompt the user to select a valid breed and update the field
         else if (fieldToUpdate.equals("breed")) {
             String animalSpecies = Utils.getAnimalSpeciesByAnimalId(conn, animalId);
             List<String> validBreeds = Utils.getBreedsByAnimalType(conn, animalSpecies);
@@ -64,22 +77,30 @@ public class Update {
                 System.out.print("Please enter a valid breed from the provided list: ");
                 newFieldValue = in.nextLine();
             }
+
+            // updates the property
             updateAnimalProperty(conn, animalId, newFieldValue, "update_animal_breed");
         }
+        // If the field to update is date discharted, prompt the user for the new date and update the property
         else if (fieldToUpdate.equals("date_discharged")) {
             System.out.println("Please write the new field value you wish to update to: ");
             in.nextLine();
             newFieldValue = in.nextLine();
 
+            // updates the property
             updateAnimalProperty(conn, animalId, newFieldValue, "update_animal_date_discharged");
         }
+        // If the field to update is name, prompt the user for the new name and update the property
         else if (fieldToUpdate.equals("name")) {
             System.out.println("Please write the new field value you wish to update to: ");
             in.nextLine();
             newFieldValue = in.nextLine();
 
+            // updates the property
             updateAnimalProperty(conn, animalId, newFieldValue, "update_animal_name");
         }
+        // If the field to update is sex, prompt the user for the new sex from the list of valid sexes and update
+        // the animal property
         else if (fieldToUpdate.equals("sex")) {
             List<String> validSexes = Utils.getValidAnimalSexes(conn);
             for (String sex: validSexes) {
@@ -93,8 +114,12 @@ public class Update {
                 System.out.print("Please enter a valid sex from the provided list: ");
                 newFieldValue = in.nextLine();
             }
+
+            // updates the property
             updateAnimalProperty(conn, animalId, newFieldValue, "update_animal_sex");
         }
+        // If the field to update is outcome type, prompt the user for the new outcome type from a list of valid
+        // outcome types and update the property
         else if (fieldToUpdate.equals("outcome_type")) {
             List<String> validOutcomeTypes = Utils.getValidOutcomeTypes(conn);
             for (String outcome: validOutcomeTypes) {
@@ -108,8 +133,12 @@ public class Update {
                 System.out.print("Please enter a valid outcome type from the provided list: ");
                 newFieldValue = in.nextLine();
             }
+
+            // updates the property
             updateAnimalProperty(conn, animalId, newFieldValue, "update_animal_outcome_type");
         }
+        // If the field to update is outcome subtype, prompt the user for the new outcome subtype from a list of valid
+        // outcome subtypes and update the property
         else if (fieldToUpdate.equals("outcome_subtype")) {
             List<String> outcomeSubtypes = Utils.getValidOutcomeSubtypes(conn);
             for (String subtype: outcomeSubtypes) {
@@ -123,6 +152,8 @@ public class Update {
                 System.out.print("Please enter a valid outcome subtype from the provided list: ");
                 newFieldValue = in.nextLine();
             }
+
+            // updates the property
             updateAnimalProperty(conn, animalId, newFieldValue, "update_animal_outcome_subtype");
         } else {
             System.out.println("Cannot process request, returning to home.");
@@ -131,9 +162,19 @@ public class Update {
 
     // use this method to update an animal by a specific property
     // all stored procedures that update on a specific value can be used here by plugging in searchQuery
-    private static void updateAnimalProperty(Connection conn, String animalId, String newFieldValue, String searchQuery)
+
+    /**
+     * Updates an animal by a specific property. All stored procedures that update on a specific value can be used
+     * in this method simply by specifying the stored procedure name in the storedProcedure field
+     * @param conn
+     * @param animalId
+     * @param newFieldValue
+     * @param storedProcedure
+     * @throws SQLException
+     */
+    private static void updateAnimalProperty(Connection conn, String animalId, String newFieldValue, String storedProcedure)
             throws SQLException {
-        CallableStatement cStmt = conn.prepareCall("{call "+ searchQuery +"(?,?)}");
+        CallableStatement cStmt = conn.prepareCall("{call "+ storedProcedure +"(?,?)}");
         cStmt.setString(1, animalId);
         cStmt.setString(2, newFieldValue);
 

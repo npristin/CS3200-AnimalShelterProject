@@ -5,7 +5,15 @@ import java.util.Scanner;
 
 public class Read {
 
+    /**
+     * Allows the user to find animals based on specified features, or to simply access the entire database
+     * @param conn
+     * @param in
+     * @throws SQLException
+     */
     public static void runRead(Connection conn, Scanner in) throws SQLException {
+
+        // First offers the user to see the entire database - can say yes or no
         System.out.print("Do you want to see the entire database of animals? Yes/No: ");
         String showAnimalDatabase = in.next();
 
@@ -21,16 +29,16 @@ public class Read {
         }
         System.out.println();
 
+        // Generate a list of all possible filters
         List<String> filters = new ArrayList<String>();
+        filters.add("id");
         filters.add("age");
-        filters.add("color");
         filters.add("breed");
-        filters.add("date_discharged");
-        filters.add("name");
         filters.add("sex");
         filters.add("outcome_type");
-        filters.add("outcome_subtype");
+        filters.add("species");
 
+        // Prompts user to select a valid filter to filter the animal database on
         System.out.print("Please select one of the following to filter animals on: id, age, breed, outcome_type, sex, species: ");
         String columnFilter = in.next();
         while (!filters.contains(columnFilter)) {
@@ -38,14 +46,16 @@ public class Read {
             columnFilter = in.next();
         }
         System.out.println();
-
         String filteringValue;
+
+        // If the column to filter on is ID, get the animals with the specified ID
         if (columnFilter.equals("id")) {
             System.out.print("Please type the ID value you want to filter on: ");
             filteringValue = in.next();
 
             Utils.getAnimalByProperty(conn, filteringValue, "animal_by_id");
         }
+        // If the column to filter on is age, get the animals with the specified age
         else if (columnFilter.equals("age")) {
             System.out.print("Please type the age value you want to filter on. Please specify if it is in " +
                     "weeks, months, or years: ");
@@ -54,6 +64,7 @@ public class Read {
 
             Utils.getAnimalByProperty(conn, filteringValue, "animal_by_age");
         }
+        // If the column to filter on is breed, get the animals with the specified breed
         else if (columnFilter.equals("breed")) {
             List<String> validBreeds = Utils.getAllBreeds(conn);
             for (String breed: validBreeds) {
@@ -70,6 +81,7 @@ public class Read {
 
             Utils.getAnimalByProperty(conn, filteringValue, "animal_by_breed");
         }
+        // If the column to filter on is outcome type, get the animals with the specified outcome type
         else if (columnFilter.equals("outcome_type")) {
             List<String> outcomes = Utils.getValidOutcomeTypes(conn);
             for (String outcome : outcomes) {
@@ -86,6 +98,7 @@ public class Read {
 
             Utils.getAnimalByProperty(conn, filteringValue, "animal_by_outcome_type");
         }
+        // If the column to filter on is sex, get the animals with the specified sex
         else if (columnFilter.equals("sex")) {
             List<String> validSexes = Utils.getValidAnimalSexes(conn);
             for (String sex: validSexes) {
@@ -102,6 +115,7 @@ public class Read {
 
             Utils.getAnimalByProperty(conn, filteringValue, "animal_by_sex");
         }
+        // If the column to filter on is species, get the animals with the specified species
         else if (columnFilter.equals("species")) {
             System.out.print("Please type the species value you want to filter on (Cat or Dog): ");
             filteringValue = in.next();

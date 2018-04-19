@@ -4,30 +4,34 @@ import java.util.Scanner;
 
 public class Application {
 
-    /** The name of the MySQL account to use (or empty for anonymous) */
+    // The name of the MySQL account/user to use
     private final String userName;
 
-    /** The password for the MySQL account (or empty for anonymous) */
+    // The password for the MySQL account
     private final String password;
 
-    /** The name of the computer running MySQL */
+    // The name of the computer/server running MySQL
     private final String serverName = "localhost";
 
-    /** The port of the MySQL server (default is 3306) */
+    // The port of the MySQL server (default is 3306)
     private final int portNumber = 3306;
 
-    /** The name of the database we are testing with (this default is installed with MySQL) */
+    // The name of the database that is being used
     private final String dbName = "animal_shelter";
 
+    /**
+     * Constructor for creating an Application from a username and password
+     * @param userName
+     * @param password
+     */
     public Application(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
 
     /**
-     * Get a new database connection
-     *
-     * @return
+     * Creates a connection to the database
+     * @return Connection
      * @throws SQLException
      */
     public Connection getConnection() throws SQLException {
@@ -44,7 +48,8 @@ public class Application {
     }
 
     /**
-     * Connect to MySQL and run the application
+     * Connect to the MySQL database and starts the application, prompting the user to select an action
+     * @throws SQLException
      */
     public void run() throws SQLException {
 
@@ -61,14 +66,19 @@ public class Application {
         System.out.println("Welcome to the Austin Animal Center database, a repository of over 25,000 animals!");
         System.out.println();
 
+        // Scanner used for reading user input
         Scanner in = new Scanner(System.in);
+
+        // Prompt the user for a command until they choose to exit the program
         while (true) {
+            // Gives the user options to CREATE, READ, UPDATE, and DELETE a record from the animal_shelter database
             System.out.println("You may add an animal by typing CREATE, delete an animal by typing DELETE, " +
                     "update an animal by typing UPDATE, and find animals by property by typing READ");
             System.out.println("Please type END if you are done and wish to exit");
 
             String command = in.next();
 
+            // If user types END, simply exit the program
             if (command.equals("END")) {
                 conn.close();
                 System.out.println();

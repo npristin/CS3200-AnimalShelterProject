@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Main {
 
     /**
-     * Connect to the DB and run the application
+     * Connect to the database and run the application
      * @param args
      */
     public static void main(String[] args) throws SQLException {
