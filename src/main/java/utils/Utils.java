@@ -17,26 +17,22 @@ public class Utils {
      * @throws SQLException
      */
     public static void getAllAnimals(Connection conn) throws SQLException {
-        Statement stmt;
-        stmt = conn.createStatement();
-        ResultSet res = stmt.executeQuery("SELECT * FROM animal");
-        ResultSetMetaData rsmd = res.getMetaData();
-        int columnsNumber = rsmd.getColumnCount();
+        CallableStatement cStmt = conn.prepareCall("{call get_all_animals()}");
+        ResultSet res = cStmt.executeQuery();
 
         // print column names
-        for (int i = 1; i <= columnsNumber; i++) {
-            System.out.print(rsmd.getColumnName(i));
-            System.out.print(",  ");
-        }
-        System.out.println();
+        String colNames = String.format("%-15s %-15s %-30s %-20s %-20s %-20s %-15s %-10s %-40s %-20s",
+            "Animal ID", "Name", "Date Discharged", "Outcome TYpe", "Outcome Subtype", "Sex", "Age", "Species",
+            "Breed", "Color");
+        System.out.println(colNames);
 
         while(res.next()){
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(",  ");
-                String columnValue = res.getString(i);
-                System.out.print(columnValue);
-            }
-            System.out.println("");
+            String record = String.format("%-15s %-15s %-30s %-20s %-20s %-20s %-15s %-10s %-40s %-20s",
+                    res.getString(1), res.getString(2), res.getString(3),
+                    res.getString(4), res.getString(5), res.getString(6),
+                    res.getString(7), res.getString(8), res.getString(9),
+                    res.getString(10));
+            System.out.println(record);
         }
     }
 
@@ -188,27 +184,23 @@ public class Utils {
      * @throws SQLException
      */
     public static void getAnimalByProperty(Connection conn, String animalParam, String storedProcedure) throws SQLException {
-        CallableStatement cStmt = conn.prepareCall("{call "+ storedProcedure +"(?)}");
+        CallableStatement cStmt = conn.prepareCall("{call " + storedProcedure + "(?)}");
         cStmt.setString(1, animalParam);
-
         ResultSet res = cStmt.executeQuery();
-        ResultSetMetaData rsmd = res.getMetaData();
-        int columnsNumber = rsmd.getColumnCount();
 
         // print column names
-        for (int i = 1; i <= columnsNumber; i++) {
-            System.out.print(rsmd.getColumnName(i));
-            System.out.print(",  ");
-        }
-        System.out.println();
+        String colNames = String.format("%-15s %-15s %-30s %-20s %-20s %-20s %-15s %-10s %-40s %-20s",
+                "Animal ID", "Name", "Date Discharged", "Outcome TYpe", "Outcome Subtype", "Sex", "Age", "Species",
+                "Breed", "Color");
+        System.out.println(colNames);
 
-        while (res.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(",  ");
-                String columnValue = res.getString(i);
-                System.out.print(columnValue);
-            }
-            System.out.println("");
+        while(res.next()){
+            String record = String.format("%-15s %-15s %-30s %-20s %-20s %-20s %-15s %-10s %-40s %-20s",
+                    res.getString(1), res.getString(2), res.getString(3),
+                    res.getString(4), res.getString(5), res.getString(6),
+                    res.getString(7), res.getString(8), res.getString(9),
+                    res.getString(10));
+            System.out.println(record);
         }
     }
 }
