@@ -1,5 +1,8 @@
-import java.sql.*;
-import java.util.Scanner;
+package operations;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.CallableStatement;import java.util.Scanner;
 
 public class Delete {
 

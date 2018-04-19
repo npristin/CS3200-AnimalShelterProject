@@ -1,3 +1,8 @@
+import operations.Create;
+import operations.Delete;
+import operations.Read;
+import operations.Update;
+
 import java.sql.*;
 import java.util.Properties;
 import java.util.Scanner;
