@@ -57,17 +57,21 @@ public class Application {
             System.out.println("ERROR: Could not connect to the database");
             return;
         }
+        System.out.println();
+        System.out.println("Welcome to the Austin Animal Center database, a repository of over 25,000 animals!");
+        System.out.println();
 
         Scanner in = new Scanner(System.in);
         while (true) {
-            System.out.println("You may add an animal by typing CREATE, delete an animal by typing DELETE," +
-                    "update an animal by typing UPDATE, and find an animal by typing READ");
+            System.out.println("You may add an animal by typing CREATE, delete an animal by typing DELETE, " +
+                    "update an animal by typing UPDATE, and find animals by property by typing READ");
             System.out.println("Please type END if you are done and wish to exit");
 
             String command = in.next();
 
             if (command.equals("END")) {
                 conn.close();
+                System.out.println("Thank you for visiting the Austin Animal Shelter database! See you later!");
                 System.exit(0);
             }
             if (command.equals("CREATE")) {
