@@ -47,7 +47,7 @@ public class Create {
         for (String breed: validBreeds) {
             System.out.println(breed);
         }
-        System.out.println("Please enter the breed of the animal you wish to create. The above are" +
+        System.out.println("Please enter the breed of the animal you wish to create. The above are " +
                 "the valid breeds: ");
         String animalBreed = in.nextLine();
         while (!validBreeds.contains(animalBreed)) {
@@ -65,7 +65,7 @@ public class Create {
         System.out.println();
 
         System.out.println("Please enter the outcome type of the animal you wish to create. The following are" +
-                "the valid outcome types: ");
+                " the valid outcome types: ");
         List<String> validOutcomeTypes = Utils.getValidOutcomeTypes(conn);
         for (String outcome: validOutcomeTypes) {
             System.out.println(outcome);
@@ -82,7 +82,7 @@ public class Create {
             System.out.println(subtype);
         }
         System.out.println("OPTIONAL: Enter the outcome subtype of the animal you wish to create. If you do not want" +
-                "to choose a subtype, type NONE. Above are the valid subtypes: ");
+                " to choose a subtype, type NONE. Above are the valid subtypes: ");
         String outcomeSubtype = in.nextLine();
         while (!(outcomeSubtypes.contains(outcomeSubtype) || outcomeSubtype.equals("NONE"))) {
             System.out.print("Please enter a valid outcome subtype from the provided list: ");
@@ -95,8 +95,6 @@ public class Create {
 
         Create.createAnimal(conn, animalId, animalName, animalSex, animalAge, animalBreed, animalSpecies, animalColor,
                 dateDischarged, outcomeType, outcomeSubtype);
-        System.out.println();
-        System.out.println();
     }
 
     private static void createAnimal(Connection conn, String animalId, String animalName, String animalSex,
@@ -119,7 +117,5 @@ public class Create {
 
         System.out.println("The following animal information is persisted in the database: ");
         Utils.getAnimalByProperty(conn, animalId, "animal_by_id");
-
-        System.out.println();
     }
 }

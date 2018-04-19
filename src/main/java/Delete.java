@@ -6,8 +6,10 @@ public class Delete {
     public static void runDelete(Connection conn, Scanner in) throws SQLException {
         System.out.print("Please enter the ID of the animal you wish to delete: ");
         String animalId = in.next();
-
         deleteAnimal(conn, animalId);
+
+        System.out.println();
+        System.out.println("You've successfully deleted animal with ID: " + animalId);
         System.out.println();
     }
 
@@ -16,7 +18,5 @@ public class Delete {
         cStmt.setString(1, animalId);
 
         cStmt.executeQuery();
-        System.out.println("Check that the following record has no entries to ensure record got deleted: ");
-        Utils.getAnimalByProperty(conn, animalId, "animal_by_id");
     }
 }

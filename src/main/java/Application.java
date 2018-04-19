@@ -71,20 +71,29 @@ public class Application {
 
             if (command.equals("END")) {
                 conn.close();
+                System.out.println();
                 System.out.println("Thank you for visiting the Austin Animal Shelter database! See you later!");
                 System.exit(0);
             }
             if (command.equals("CREATE")) {
+                System.out.println();
                 Create.runCreate(conn, in);
+                System.out.println();
             }
             if (command.equals("DELETE")) {
+                System.out.println();
                 Delete.runDelete(conn, in);
+                System.out.println();
             }
             if (command.equals("UPDATE")) {
+                System.out.println();
                 Update.runUpdate(conn, in);
+                System.out.println();
             }
             if (command.equals("READ")) {
+                System.out.println();
                 Read.runRead(conn, in);
+                System.out.println();
             }
         }
     }

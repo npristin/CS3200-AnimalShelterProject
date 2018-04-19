@@ -127,8 +127,6 @@ public class Update {
         } else {
             System.out.println("Cannot process request, returning to home.");
         }
-        System.out.println();
-        System.out.println();
     }
 
     // use this method to update an animal by a specific property

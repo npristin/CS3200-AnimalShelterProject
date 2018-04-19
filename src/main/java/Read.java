@@ -45,8 +45,6 @@ public class Read {
             filteringValue = in.next();
 
             Utils.getAnimalByProperty(conn, filteringValue, "animal_by_id");
-            System.out.println();
-            System.out.println();
         }
         else if (columnFilter.equals("age")) {
             System.out.print("Please type the age value you want to filter on. Please specify if it is in " +
@@ -55,8 +53,6 @@ public class Read {
             filteringValue = in.nextLine();
 
             Utils.getAnimalByProperty(conn, filteringValue, "animal_by_age");
-            System.out.println();
-            System.out.println();
         }
         else if (columnFilter.equals("breed")) {
             List<String> validBreeds = Utils.getAllBreeds(conn);
@@ -73,12 +69,10 @@ public class Read {
             }
 
             Utils.getAnimalByProperty(conn, filteringValue, "animal_by_breed");
-            System.out.println();
-            System.out.println();
         }
         else if (columnFilter.equals("outcome_type")) {
             List<String> outcomes = Utils.getValidOutcomeTypes(conn);
-            for (String outcome: outcomes) {
+            for (String outcome : outcomes) {
                 System.out.println(outcome);
             }
             System.out.print("Please type the outcome type you want to filter on. Please select from the above list of valid " +
@@ -91,8 +85,6 @@ public class Read {
             }
 
             Utils.getAnimalByProperty(conn, filteringValue, "animal_by_outcome_type");
-            System.out.println();
-            System.out.println();
         }
         else if (columnFilter.equals("sex")) {
             List<String> validSexes = Utils.getValidAnimalSexes(conn);
@@ -109,19 +101,14 @@ public class Read {
             }
 
             Utils.getAnimalByProperty(conn, filteringValue, "animal_by_sex");
-            System.out.println();
-            System.out.println();
         }
         else if (columnFilter.equals("species")) {
             System.out.print("Please type the species value you want to filter on (Cat or Dog): ");
             filteringValue = in.next();
 
             Utils.getAnimalByProperty(conn, filteringValue, "animal_by_species");
-            System.out.println();
-            System.out.println();
         } else {
             System.out.println("Cannot process request, returning to home.");
-            System.out.println();
         }
     }
 }
